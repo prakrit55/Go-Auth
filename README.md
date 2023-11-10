@@ -1,3 +1,4 @@
-# Go-Chat
+# Go-Auth
 
-It is a chat appplication made up of Gin, JWT, and Postgress at the database. 
+It is a simple authentication appplication made up of Gin, JWT, and Postgress at the database. 
+
