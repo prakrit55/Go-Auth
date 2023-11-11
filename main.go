@@ -4,10 +4,12 @@ import (
 	"log"
 	"os"
 
-	db "github.com/prakrit55/Go-Chat/DB"
-	user "github.com/prakrit55/Go-Chat/Internal/Users"
-	router "github.com/prakrit55/Go-Chat/Router"
+	"github.com/gin-gonic/gin"
+	db "github.com/prakrit55/Go-Auth/DB"
+	user "github.com/prakrit55/Go-Auth/Internal/Users"
 )
+
+var r *gin.Engine
 
 func main() {
 	// Creates a new database
@@ -26,6 +28,18 @@ func main() {
 
 	PORT := os.Getenv("PORT")
 
-	router.InitRouter(userHandler)
-	router.Start(PORT)
+	InitRouter(userHandler)
+	Start(PORT)
+}
+
+func InitRouter(userHandler *user.Handler) {
+	r = gin.Default()
+
+	r.POST("/signup", userHandler.CreateUser)
+	r.POST("/login", userHandler.Login)
+	r.GET("/logout", userHandler.Logout)
+}
+
+func Start(addr string) error {
+	return r.Run(addr)
 }

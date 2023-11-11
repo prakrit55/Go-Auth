@@ -17,14 +17,8 @@ type UserReq struct {
 	Password string `json:"password"`
 }
 
-type UserRes struct {
-	ID       string `json:"id"`
-	Username string `json:"username"`
-	Email    string `json:"email"`
-	Phone    string `json:"phone"`
-}
-
 type Repo interface {
-	CreateUser(ctx context.Context, user *User) (*User, error)
+	CreateUser(ctx context.Context, user *User) (error)
 	GetUserByPhone(ctx context.Context, phone string) (*User, error)
+	DeleteUserByPhone(ctx context.Context, phone string) (error)
 }

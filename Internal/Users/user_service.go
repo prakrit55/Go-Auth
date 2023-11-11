@@ -2,14 +2,9 @@ package user
 
 import (
 	"context"
-	"strconv"
 	"time"
 
-	util "github.com/prakrit55/Go-Chat/Util"
-)
-
-const (
-	secretKey = "secret"
+	util "github.com/prakrit55/Go-Auth/Util"
 )
 
 type service struct {
@@ -24,14 +19,14 @@ func NewService(repository Repo) Service {
 	}
 }
 
-func (s *service) CreateUser(c context.Context, req *UserReq) (*UserRes, error) {
+func (s *service) CreateUser(c context.Context, req *UserReq) error {
 	ctx, cancel := context.WithTimeout(c, s.timeout)
 	defer cancel()
 
 	// Encrypt the password in Util
 	hashedPassword, err := util.HashPassword(req.Password)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	u := &User{
@@ -42,16 +37,21 @@ func (s *service) CreateUser(c context.Context, req *UserReq) (*UserRes, error) 
 	}
 
 	// Stores the user data in db with the hashed password
-	r, err := s.Repo.CreateUser(ctx, u)
+	err = s.Repo.CreateUser(ctx, u)
 	if err != nil {
-		return nil, err
+		return err
 	}
+	
+	return nil
+}
 
-	res := &UserRes{
-		ID:       strconv.Itoa(int(r.ID)),
-		Username: r.Username,
-		Email:    r.Email,
-		Phone:    r.Phone,
+func (s *service) DeleteUser(c context.Context, req *DataReq) error {
+	ctx, cancel := context.WithTimeout(c, s.timeout)
+	defer cancel()
+
+	err := s.Repo.DeleteUserByPhone(ctx, req.Phone)
+	if err != nil {
+		return err
 	}
-	return res, nil
+	return nil
 }

@@ -1,4 +1,4 @@
-module github.com/prakrit55/Go-Chat
+module github.com/prakrit55/Go-Auth
 
 go 1.21.0
 
