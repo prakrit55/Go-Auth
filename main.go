@@ -38,6 +38,7 @@ func InitRouter(userHandler *user.Handler) {
 	r.POST("/signup", userHandler.CreateUser)
 	r.POST("/login", userHandler.Login)
 	r.GET("/logout", userHandler.Logout)
+	r.GET("/deleteuser", userHandler.DeleteUser)
 }
 
 func Start(addr string) error {

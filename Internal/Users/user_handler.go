@@ -56,10 +56,20 @@ func (h *Handler) Logout(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 
+	c.SetCookie("jwt", "", -1, "", "", false, true)
+	c.JSON(http.StatusOK, gin.H{"message": "logout successfull"})
+}
+
+func (h *Handler) DeleteUser(c *gin.Context) {
+	var user DataReq 
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error":err.Error()})
+	}
+
 	err := h.Service.DeleteUser(c.Request.Context(), &user)
 	if err != nil {
 		log.Print(err)
 	}
 	c.SetCookie("jwt", "", -1, "", "", false, true)
-	c.JSON(http.StatusOK, gin.H{"message": "logout successfull"})
+	c.JSON(http.StatusOK, gin.H{"message": "user deleted"})
 }

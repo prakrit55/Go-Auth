@@ -44,6 +44,8 @@ We use `post` method and provide the details like phone and password of saved us
 
 To logout, we select `get` method with url `localhost:8000/logout` and provide user phone and password to logout.
 
+To delete user, we select `get` method with url `localhost:8000/deleteuser` and provide user phone and password to de;lete the specific user.
+
 
 
 
