@@ -22,11 +22,17 @@ We need to create the migrations for a table for database model. We run `make mi
 In `_add_user_table.up.sql` we write the structure given below.
 
 CREATE TABLE "users" (
+
     "id" bigserial PRIMARY KEY,
+    
     "username" varchar NOT NULL,
+    
     "email" varchar NOT NULL,
+    
     "phone" varchar NOT NULL,
+    
     "password" varchar NOT NULL
+    
 )
 
 Here we create users with the following details.
