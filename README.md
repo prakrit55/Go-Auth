@@ -1,6 +1,6 @@
 # Go-Auth
 
-It is a simple authentication appplication made up of Gin, JWT, and Postgress at the database. It creates user in database by providing input in JSON. We are able to login as the user we created. Also, we can log the user out by providing the phone number and password. It uses bcrypt to encrypt the password in `Util` directory.
+It is a simple authentication appplication made up of Gin, Golang-Jwt, and Postgress at the database. It creates user in database by providing input in JSON. We are able to login as the user we created. Also, we can log the user out by providing the phone number and password. It uses bcrypt to encrypt the password in `Util` directory.
 
 It uses `JWT` for authentication. When we login to the user as we created before, a `JWT` token gets generated.
 
@@ -24,13 +24,9 @@ In `_add_user_table.up.sql` we write the structure given below.
 CREATE TABLE "users" (
 
     "id" bigserial PRIMARY KEY,
-    
     "username" varchar NOT NULL,
-    
     "email" varchar NOT NULL,
-    
     "phone" varchar NOT NULL,
-    
     "password" varchar NOT NULL
     
 )
